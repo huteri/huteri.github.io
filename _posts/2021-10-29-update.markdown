@@ -1,0 +1,23 @@
+---
+layout: post
+title: "Update"
+date: 2021-10-29 18:51:18 +0800
+comments: true
+categories: 
+---
+
+It has been sometime since I wrote, and it has been quite journey. I have learned so many things  and I didn't have time to update my blog. I will write what I learned before I forget about it as part of my goals to document my life. I'd like to expand my writing scope to more than Android now. 
+
+I've learned and worked with Android for more than 4 years, and honestly I am quite burned out with it, then covid came. everything changed, I learned more than Android, I found more that life could offer, and for the first time I realized that Investment is really important. I am not talking about investment as invest your money, but more about invest your life and money.
+
+There are so many things that we can do in our life, but the most memorable and useful one is the one that you invest time with. Think about hobby, passion, or anything that you learned that you will use for the rest of your life. 
+
+Since these past 2 years, I've been changing my hobby for quite few times. I was onto custom keyboard in 2020 when covid came, learned about switches, keyboard profile, sound profile, experimenting with many kinds of switch from taobao (this is one of heaven in the world, and I can't even read or speak chinese. Basically they sell everything). I know which one sounds best to me, and recommendation to find best switch, but I kind of regret not to document it, and I am starting to forget everything. 
+
+Life moved on, and my hobby for 2021 now is home lab, I am really into home server, I started to learn about home assistant in early 2021 and this is heaven of smart home. My home now is now better than ever, tell me how many times you forget to turn off light, tell me how many times you have to get up from your chair just to turn on the aircon when it's hot. This is not just as simple as, hey google/alexa, "turn off light", I am talking about jarvis kind of smart. Okay, I am too exaggerating, but with the pace we are going now, it's not impossible. My alexa tells me when the room is too hot, and asks me whether I want to turn on aircon, how cool is that? Not as smart as Jarvis, but hey this is a start.
+
+When I started home assistant, I found something greater than home assistant. They call it home lab for the people who having home server at home and this world is even bigger than custom keyboard. I really fall deep down into this rabbit hole, but I always think this is as good investment. This is something that I learn and use it for the rest of my life. 
+
+Did I tell you I started forex too? Forex world is interesting for me because of the EA (Expert advisor), or simple word, a trading robot. You could code your own robot to buy or sell based on your specific requirements. I also have used and experimented a lot of these EA, and could earn passively 10-20% per month from the money I put. If this reaches specific amount, I could earn more than my full time job. This is not easy if you are not careful, I would share tips how I earn this consistently and what attitude that you have to understand before going deeper into this. 
+
+Beside that, I was also full time flutter developer, my previous company used flutter to build apps, and I could make apps for both ios and android now. I have been developing my app for quite some time, but I kinda regret, it was bit too big for me to handle, and I didn't have time to finish it. I wish I could continue this later. 

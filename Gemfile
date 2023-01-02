@@ -17,3 +17,8 @@ end
 
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
+
+group :jekyll_plugins do
+  # (other jekyll plugins)
+  gem 'jekyll_picture_tag', '~> 2.0'
+end
