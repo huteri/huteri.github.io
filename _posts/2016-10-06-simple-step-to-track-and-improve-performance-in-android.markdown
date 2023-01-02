@@ -14,7 +14,7 @@ We know that good performance should not be lagging. By not lagging, it means th
 
 There are some factors why we can't load the ui in 16ms/frame such as layout/measuring time, overdraw, garbage collector, etc, and I will let you know how to find it.
 
-###Step 1: Identify the cause
+### Step 1: Identify the cause
 There are some tools to know how our app performs and whether our apps can load the ui 60frames/second. 
 
 The first tool is profile gpu rendering. It's available in developer options in the phone, and we just need to enable it. 
@@ -37,7 +37,7 @@ I also set the duration for the data which is 10 seconds. While running this com
 
 As an example, while tracing I am doing these actions
 
-![]({https://www.youtube.com/watch?v=Fx6KR38JEzs})
+{% youtube Fx6KR38JEzs %}
 
 The result is like this
 
@@ -51,7 +51,7 @@ If we look on one of the frame in orange colour, we can see the reason below it.
 
 This is the reason why I love systrace. So, we have problem with long `view#draw()`. The most common cause of this issue is overdraw.
 
-###Step 2: Fixing overdraw
+### Step 2: Fixing overdraw
 Now, let's see how we can fix overdraw. Overdraw is basically we draw the views more than we need to, so we have to find what views that do not need to be drawn, and remove it. You can read more about overdraw [here](https://developer.android.com/studio/profile/dev-options-overdraw.html)
 
 Enable overdraw tracing is simple, just visit developer options then enable Debug GPU overdraw
@@ -78,7 +78,7 @@ To solve this, I just have to remove unnecessary background
 
 ![](/images/post/remove_background.png)
 
-###Step 3: Evaluate
+### Step 3: Evaluate
 Let's look again on the result.
 
 ![](/images/post/overdraw-fix.png)
