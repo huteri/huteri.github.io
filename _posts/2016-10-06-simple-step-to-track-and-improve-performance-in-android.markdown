@@ -19,9 +19,9 @@ There are some tools to know how our app performs and whether our apps can load 
 
 The first tool is profile gpu rendering. It's available in developer options in the phone, and we just need to enable it. 
 
-{% picture left /images/post/enable_profile_gpu_rendering.png %}
+![](/images/post/enable_profile_gpu_rendering.png)
 
-{% picture /images/post/gpu_performance.png %}
+![](/images/post/gpu_performance.png)
 
 The green line indicate position for 16ms, we should not draw the ui above this line to achieve smooth and lag free app.
 
@@ -41,13 +41,13 @@ As an example, while tracing I am doing these actions
 
 The result is like this
 
-{% picture /images/post/performance_before.gif %}
+![](/images/post/performance_before.gif)
 
 From this systrace report, focus on F letter at the bottom, these are frames. Green background means the frame was drew below 16ms. The other colours mean otherwise. So our goal here is to make all frames green.
 
 If we look on one of the frame in orange colour, we can see the reason below it.
 
-{% picture /images/post/performance_explanation.png %}
+![](/images/post/performance_explanation.png)
 
 This is the reason why I love systrace. So, we have problem with long `view#draw()`. The most common cause of this issue is overdraw.
 
@@ -56,7 +56,7 @@ Now, let's see how we can fix overdraw. Overdraw is basically we draw the views 
 
 Enable overdraw tracing is simple, just visit developer options then enable Debug GPU overdraw
 
-{% picture /images/post/overdraw.png %}
+![](/images/post/overdraw.png)
 
 It's pretty clear now, red means the views have been drawn more than 3 times.
 
@@ -64,7 +64,7 @@ It's pretty clear now, red means the views have been drawn more than 3 times.
 
 There is new tool in Android Studio 2.2 called Layout Inspector, it's super handy tool to investigate overdraw beside the old hierarchy layout.
 
-{% picture /images/post/layout_inspector.png %}
+![](/images/post/layout_inspector.png)
 
 We only need to look on the `bg` attribute, as in the screenshot, the LinearLayout has a background, but also the `ViewPager`, `RelativeLayout` and the `RecyclerView` of its child.
 
@@ -76,16 +76,16 @@ And also please note, that android by default will provide background to each ac
 
 To solve this, I just have to remove unnecessary background
 
-{% picture /images/post/remove_background.png %}
+![](/images/post/remove_background.png)
 
 ###Step 3: Evaluate
 Let's look again on the result.
 
-{% picture /images/post/overdraw-fix.png %}
+![](/images/post/overdraw-fix.png)
 
 It's better, and let's look on the systrace report
 
-{% picture /images/post/performance_after.gif %}
+![](/images/post/performance_after.gif)
 
 Still not all green, but it's better than before, and the most important thing is that you can feel the difference. This is how you can improve user experience.
 

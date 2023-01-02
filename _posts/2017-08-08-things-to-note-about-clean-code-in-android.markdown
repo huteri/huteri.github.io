@@ -18,7 +18,7 @@ It's been a while. Let's talk about clean architecture in Android. We know that 
 
 But, it's not what I want to talk today. Let's talk more about common mistakes when doing clean archictecture in Android.
 
-###1. Not able to move logic from Activity/Fragment to Presenter/ViewModel
+### 1. Not able to move logic from Activity/Fragment to Presenter/ViewModel
 
 I believe that view must be passive, it means that we should make it as dumb as possible, so there is no way we can have bug in a view code. Every method in a view is supposed to do exactly one thing, no more, no if.
 
@@ -74,11 +74,11 @@ Unit test is the most useful way to make our code clean. Even if we just think a
 
 Basically, by only thinking about unit test, we will: 
 
-####a. not put android framework code in the presenter/viewmodel
+#### a. not put android framework code in the presenter/viewmodel
 
-####b. not put logic in activity/fragment because we are trying to achieve 100% coverage of the logic
+#### b. not put logic in activity/fragment because we are trying to achieve 100% coverage of the logic
 
-####c. not put complex code, but instead make everything simple
+#### c. not put complex code, but instead make everything simple
 
 Let me know what you think later after you tried it.
 

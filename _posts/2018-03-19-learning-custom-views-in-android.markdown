@@ -11,7 +11,7 @@ Today, I would like to share my experience with custom views, and hopefully this
 
 <!--more-->
 
-{% picture /images/post/simple_analog_clock.png %}
+![](/images/post/simple_analog_clock.png)
 
 It's available in github and everyone can take a look 
 
@@ -19,7 +19,7 @@ https://github.com/huteri/analogclock
 
 Let's see how I created this custom view
 
-####1. `Canvas.drawArc()` 
+#### 1. `Canvas.drawArc()` 
 
 `Canvas.drawArc()` is a function from Canvas API. The basic functionality of this api is to draw arc and we can use this to draw complete circle.
 
@@ -46,10 +46,10 @@ it.drawArc(rectF, -90f, 180f, false, paint.apply {
 
 In the code above, we create a rectF and set the size to be 400 in all 4 sides, then we can draw an arc inside of this rectF
 
-{% picture /images/post/custom_view_arc.png %}
+![](/images/post/custom_view_arc.png)
 
 
-####2. Draw Moving Hands in Analog Clock
+#### 2. Draw Moving Hands in Analog Clock
 
 We have moving hands in the analog clock for hour, minute, and second. How to draw this? Basically the hands are just rectangular with rounded corners. We can draw rounded rectangular easily with `Canvas.drawRoundRect()` api but how do we draw rounded rect to point to 5 o'clock? This is where `Canvas.save()` and `Canvas.rotate()` come to play.
 
@@ -59,7 +59,7 @@ Second we draw the rounded rectangular to point to 12  o'clock, then rotate the 
 
 Call `Canvas.restore` to restore position of each view from last save. it won't restore the position of rounded rectangle and its rotation because we call 'Canvas.save' before we draw these 
 
-####3. Touch Area and Selected Area
+#### 3. Touch Area and Selected Area
 
 This is one the hardest part in this custom view. It's about how to make our custom view clickable and give feedback to our touches. 
 
@@ -69,7 +69,7 @@ That's why we need `Path` instead of only an arc, because with `Path` we can def
 
 Look on the screenshot for custom view again, we want to make sure that user can easily select the data. So we are going to make touch area from the center of the view to arc. It's like slice of pizza. Here is to give you picture. 
 
-{% picture /images/post/custom_view_touch_area.png %}
+![](/images/post/custom_view_touch_area.png)
 
 The slices with grey background are the touch area, so whenever user touches inside of this area, the item will be selected. 
 

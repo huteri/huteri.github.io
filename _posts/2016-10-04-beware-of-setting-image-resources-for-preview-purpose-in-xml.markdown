@@ -32,16 +32,16 @@ Here is the example of pre set image resources
 
 `budget_preview.png` is a really big image. With default activity, my app only uses around 20mb of memory,
 
-{% picture /images/post/ram_usage_1.png %}
+![](/images/post/ram_usage_1.png)
 
 but after open the activity with only 3 items with that layout, it jumped into 90mb, scroll a little bit, OOM was raised.
 
-{% picture /images/post/ram_usage_2.png %}
+![](/images/post/ram_usage_2.png)
 
 So don’t forget to remove android:src after you finish preview, and you’ll probably save a good memory
 Hope it’s usefull.
 
-####Protip from +Christophe Beyls
+#### Protip from +Christophe Beyls
 
 Use tools:src instead of android:src to get the preview image in Android Studio with zero impact on runtime http://tools.android.com/tips/layout-designtime-attributes
 
