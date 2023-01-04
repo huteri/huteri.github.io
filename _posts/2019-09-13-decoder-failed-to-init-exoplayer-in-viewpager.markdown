@@ -1,20 +1,21 @@
 ---
 layout: post
-title: "Decoder Failed to Init - Exoplayer in ViewPager"
+title: "Decoder Failed to Init - Exoplayer & ViewPager"
 date: 2019-09-13 13:52:53 +0800
 comments: true
 categories: exoplayer, tips
 ---
 
 
-There are number of limitations on how many we can initialize exoplayer in 1 device. Initialize more than it should be will cause exoplayer to throw exception that is not easy to debug and break the whole video player in the app.
+There is a limit on how many times we can initialize exoplayer in a single device. If we initialize more than it should be, It will cause exoplayer to throw an exception that is not easy to debug and can potentially break the video player in the app.
 
 <!--more-->
 
-It's pretty common when we initialize exoplayer in viewpager, depends on where we initialize exoplayer. it can keep creating new instance everytime we swipe or navigate to another screen and come back. 
+It's pretty common to show video player inside viewpager, sometimes we just want to play video in a list or swipeable view like view pager. This process requires us to initialize exoplayer inside child views, which is not a good practice because these views can be initialized multiple times by the operating system.
 
-Exception thrown from emulator as my experiments related with AudioTrack. 
+In my case, every time I swipe or navigate to another screen, a new instance of exoplayer is created and an exception is thrown at the end.
 
+Here is a sample of exceptions thrown by exoplayer.
 ```
 playerFailed [0.58, 1]
     com.google.android.exoplayer2.ExoPlaybackException: com.google.android.exoplayer2.audio.AudioSink$InitializationException: AudioTrack init failed: 0, Config(32000, 12, 32000)
@@ -40,11 +41,7 @@ playerFailed [0.58, 1]
         at android.os.HandlerThread.run(HandlerThread.java:65) 
 ```
 
-As for my google pixel will throw `Decoder init failed: OMX.qcom.video.decoder.avc...`
-
-To solve this, track how many initialization happened in the app and how many times it released.
-
-Filter the logcat by `ExoPlayerImpl` will give result like this
+To solve this, we have to track how many initializations happens and releases. The simple way to do this is to filter the logcat by `ExoPlayerImpl` 
 
 ```
 Init b27c0c5 [ExoPlayerLib/2.10.4] [taimen, Pixel 2 XL, Google, 29]
@@ -82,7 +79,7 @@ Release 971d6c2 [ExoPlayerLib/2.10.4] [taimen, Pixel 2 XL, Google, 29] [goog.exo
 Init d1895ef [ExoPlayerLib/2.10.4] [taimen, Pixel 2 XL, Google, 29]
 ```
 
-Exoplayer kept initializing 2 instances but never release it, as for 3rd instance is fine, because it released after that but for the first 2 instance, there are no logcat of releasing it and it kept adding new instances everytime.
+As we can see from the sample above, exoplayer was initiated more than it released. When this reaches a certain amount, the exception will be thrown.
 
 The solution can be as simple as null checking before initializing it
 
@@ -90,8 +87,8 @@ The solution can be as simple as null checking before initializing it
    if(player != null)
       return
 
-	player = ExoPlayer(context)
-	player?.initialize()
+   player = ExoPlayer(context)
+   player?.initialize()
 ```
 
 This is what it looks like after null checking
@@ -122,5 +119,5 @@ I/ExoPlayerImpl: Init e65a93c [ExoPlayerLib/2.10.4] [taimen, Pixel 2 XL, Google,
 I/ExoPlayerImpl: Release e65a93c [ExoPlayerLib/2.10.4] [taimen, Pixel 2 XL, Google, 29] [goog.exo.core, goog.exo.ui, goog.exo.hls]
 ```
 
-It still never releases the first 2 instances, but also never create new one, as it reuses the instances.
+I hope this is useful and helps someone who has the same problem.
         

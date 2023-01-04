@@ -7,7 +7,7 @@ categories: views
 ---
 
 
-Today, I would like to share my experience with custom views, and hopefully this can help someone to create their own custom view. The custom view here is a simple analog clock, it's analog clock view where we can put it in xml to show it. Here is the sample
+Today, I would like to share my experience with custom views, and hopefully this can help someone to create their own custom view. The custom view here is a simple analog clock, which is an analog clock view that can be put in XML to show it. Here is the sample
 
 <!--more-->
 
@@ -57,7 +57,7 @@ First we save the snapshot of the current canvas with `Canvas.save()`. I would s
 
 Second we draw the rounded rectangular to point to 12  o'clock, then rotate the canvas 150 degrees to get it to 5 o'clock. (every hour is 30 degree)
 
-Call `Canvas.restore` to restore position of each view from last save. it won't restore the position of rounded rectangle and its rotation because we call 'Canvas.save' before we draw these 
+Call `Canvas.restore` to restore position of each view from last save. it won't restore the position of the rounded rectangle and its rotation because we called 'Canvas.save' before we drew these.
 
 #### 3. Touch Area and Selected Area
 
