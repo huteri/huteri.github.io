@@ -12,7 +12,7 @@ categories: clean architecture
 
 ---
 
-It's been a while. Let's talk about clean architecture in Android. We know that best practices for clean architecture are changing fast. Look on what Google has done with its architecture components. For more detail about architecture components, [click here](https://developer.android.com/topic/libraries/architecture/index.html)
+It's been a while since I last wrote. Let's talk about clean architecture in Android. We know that best practices for clean architecture are changing fast. Look on what Google has done with its architecture components. For more detail about architecture components, [click here](https://developer.android.com/topic/libraries/architecture/index.html)
 
 <!--more-->
 
@@ -20,9 +20,9 @@ But, it's not what I want to talk today. Let's talk more about common mistakes w
 
 ### 1. Not able to move logic from Activity/Fragment to Presenter/ViewModel
 
-I believe that view must be passive, it means that we should make it as dumb as possible, so there is no way we can have bug in a view code. Every method in a view is supposed to do exactly one thing, no more, no if.
+I believe that the view must be passive, which means that we should make it as dumb as possible so that there is no way for bugs to occur in the view code. Every method in a view should do exactly one thing, with no additional logic.
 
-Let's look on a good example
+Let's look at a good example.
 
 
 ``` java
@@ -69,7 +69,7 @@ I know it's lot of boilerplate, but it's worth it if we think about how easy it 
 
 ###2. Not to Think about Unit Test
 
-Unit test is the most useful way to make our code clean. Even if we just think about it, it will improve our code a lot. One of the tip is to always think about unit test when you write code. Think about how we are going to test it later. This is the least minimum, I mean if you do TDD, then it's better. No need to follow this.
+Unit test is the most useful way to make our code clean. Even if we just think about it, it will improve our code a lot. One tip is to always think about unit testing while writing code. Think about how we are going to test it later. This is the least minimum, I mean if you do TDD, then it's better. No need to follow this.
 
 
 Basically, by only thinking about unit test, we will: 
@@ -87,7 +87,7 @@ Let me know what you think later after you tried it.
 
 One of the thing about clean architecture is separation. Every layer of clean architecture has their own responsibility and they only know layers below them, they only want to know that they can get the data they need. 
 
-With this separation, we can change the inner logic inside of one the layer, and the other layer will not care as long as it can get the data. One of the useful example is local database. There are a lot of ways implementing local database in android such as Realm, Room, and Sqlite, and this thing will change to something better in the future. So if we already implemented Realm, then how would we change it to room later? 
+With this separation, we can change the inner logic of one layer without affecting the other layer as long as it can still get the data it needs. One of the useful example is local database. There are a lot of ways implementing local database in android such as Realm, Room, and Sqlite, and this thing will change to something better in the future. So if we already implemented Realm, then how would we change it to room later? 
 
 This is where separations looks useful. With a clear separation, we could change to room easily without too much refactoring.
 
