@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Beware of Setting Image Resource for Preview in XML for Android"
+title: "Be Aware When Setting Image Resource for Preview in XML for Android"
 date: 2015-07-11 13:31:54 +0700
 comments: true
 categories: Tips

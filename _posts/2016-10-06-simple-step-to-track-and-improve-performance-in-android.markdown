@@ -6,18 +6,18 @@ comments: true
 categories: performance
 ---
 
-It's been a while since I wrote my last article, today I would like to share more about something. Let's talk about performance. I will give a little sample how we can improve performance of our app with simple step.
+It's been a while since I wrote my last article, today I would like to share more about something. Let's talk about performance. I will give a little sample how we can improve performance of our app.
 
-We know that good performance should not be lagging. By not lagging, it means that we should load the UI with 16ms/frame or 60 frames/second. The question is how do we achieve it?
+Apps with good performance should not be lagging. By not lagging, it means that the apps load the UI within 16ms/frame or 60 frames/second. The question is how do we achieve it?
 
 <!--more-->
 
-There are some factors why we can't load the ui in 16ms/frame such as layout/measuring time, overdraw, garbage collector, etc, and I will let you know how to find it.
+There are some possible reasons why we can't load the ui within 16ms/frame such as layout/measuring time, overdraw, garbage collector, etc.
 
 ### Step 1: Identify the cause
 There are some tools to know how our app performs and whether our apps can load the ui 60frames/second. 
 
-The first tool is profile gpu rendering. It's available in developer options in the phone, and we just need to enable it. 
+The first tool is profile gpu rendering. We can enable this from developer options on our device. 
 
 ![](/images/post/enable_profile_gpu_rendering.png)
 
@@ -25,7 +25,7 @@ The first tool is profile gpu rendering. It's available in developer options in 
 
 The green line indicate position for 16ms, we should not draw the ui above this line to achieve smooth and lag free app.
 
-Another tool I like more is `systrace`, I like it more because it gives you the more accurate and more explainable data. To use it, we only need to run this simple command
+Another tool I like is `systrace`, I like it because it gives you more accurate and more explainable data. To use it, we only need to run this simple command
 
 ```
 $ python ~/Library/Android/sdk/platform-tools/systrace/systrace.py --time=10 -o ~/Desktop/perform.html sched gfx view wm
@@ -58,7 +58,7 @@ Enable overdraw tracing is simple, just visit developer options then enable Debu
 
 ![](/images/post/overdraw.png)
 
-It's pretty clear now, red means the views have been drawn more than 3 times.
+Red means the view has been drawn more than 3 times.
 
 **How do we find the culprit?**
 
@@ -86,8 +86,6 @@ Let's look again on the result.
 It's better, and let's look on the systrace report
 
 ![](/images/post/performance_after.gif)
-
-Still not all green, but it's better than before, and the most important thing is that you can feel the difference. This is how you can improve user experience.
 
 Hope it helps. 
 

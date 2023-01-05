@@ -6,38 +6,38 @@ comments: true
 categories: architecture
 ---
 
-Today, I would like to talk about MVP in android. I know that there are a lot of resources recently talking about MVP in android. MVP is now considered as the best architecture available in Android Development. I tried to learn about this clean archictecture, and I admit it is quite hard to learn for newbie like me.
+Today, I would like to talk about MVP in android. There are a lot of resources recently talking about MVP in android. MVP is now considered as the good architecture available in Android Development. 
 
 <!--more-->
 
-I hope there is a better way to understand the concept of the MVP first before we talk about the better way in implementing MVP. This is the purpose of this article. I want to give a good and easy sample how to implement MVP in the easiest way. I have read a lot of articles about MVP, and I will put them in the references later.
+I hope there is a better way to understand the concept of the MVP first before we talk about how to use MVP in our development workflow. This is the purpose of this article. I want to give a good and easy sample how to implement MVP. 
 
 If you are also new in MVP, then I suggest to read this post first and then continue on the article I’ll give in the references.
 
-So, the core purpose of MVP is to make the code testable. if you realize that there were a litle detail about how to really implement a good unit testing in Android because unit testing was really hard in Android since we depended a lot in Android framework.
+So, the one of the idea of MVP is to make the code testable. There are not much details about how to write a good unit test in Android because unit testing was considered hard because of how dependable our project to android frameworks.
 
-But, today, with MVP and clean architecture, we can improve the coverage of unit testing in our code and make them testable.
+But, today, with MVP and clean architecture, we can improve the coverage of unit testing in our code.
 
-ok, stop talking and let’s see the code. I have written a simple android app with clean architecture. It is mostly based on the reference from Google but I improve it to make it easier to understand.
+Let’s see the code. I have written a simple android app for this purpose. It is mostly based on the references but I have improved it to make it easier to understand.
 
-The good thing about this sample app is that I don’t use any third party libraries, I know it is not good, but I made it just for learning purpose. I also put some common best practices if you want to use it in real development.
+I didn't use any third party library for learning purpose. I also put some common best practices if you want to use it in real development.
 
-Here we go https://github.com/huteri/mvp-android
+Here is the link https://github.com/huteri/mvp-android
 
-The idea of MVP is that we should not access the data layer (Model) directly from the view. We have to use the middle layer called presenter to coordinate the data into the view. But why? because view is heavily depended on android framework such as activity and fragment and it makes testing data layer in the view almost impossible. Data layer consists of our business logic and it should be tested properly.
+The thing about MVP is that we should not access the data layer (Model) directly from the view. We have to use the middle layer called presenter to coordinate the data into the view. But why? because view is heavily depended on android framework such as activity and fragment and it makes testing data layer in the view almost impossible. Data layer consists of our business logic and it should be tested properly.
 
-**How do we make it?**
+**How do we do it?**
 
-By moving all the responsibilites of the view to presenter. Now presenter is responsible for getting and managing the data. View just shows it to UI by using android framework.
+By moving business logic of the view to presenter. Now presenter is responsible for getting and managing the data. View just show it to UI by using android framework.
 
-Now, we understand the concept, but how do we implement it? If you read carefully, we have 2 process here,
+Now, we understand the concept, but how do we implement it? We have 2 steps here,
 
 1. Delegate all the user actions from view to presenter
 2. Presenter can send the data to the view and the view should show it to UI.
 
-Let’s talk about the first process, look on this sample code
+Let’s talk about the first step,
 
-``` java MainActivity.java
+```java
 package me.huteri.weather.features.main;
 
 import android.os.Bundle;
@@ -164,9 +164,9 @@ public class MainActivity extends BaseActivity implements MainView, WeatherListA
 }
 ```
 
-See, I just delegate methods to presenter with `mPresener.theMethodHere()`. Just ignore code you don’t know, we’ll talk about that later. Now look on the presenter.
+Here is how presenter looks like
 
-``` java MainPresenter.java
+```java
 package me.huteri.weather.features.main;
 
 import me.huteri.weather.model.Weather;
@@ -177,7 +177,7 @@ public interface MainPresenter{
 }
 ```
 
-``` java MainPresenterImpl.java
+```java
 package me.huteri.weather.features.main;
 
 
@@ -235,9 +235,11 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
 }
 ```
 
-In the presenter, we define the method for `MainPresenter.theMethodHere()`, basically all the methods delegated from view. It’s that simple. Now let’s talk about the second process, presenter should send the data to view, and the view should show it to UI. If you are looking carefully in the presenter, we have `MainView` interface. It’s for the second process, the way for presenter to send the data to view, and the view should show it to UI.
+we define the method for `MainPresenter.theMethodHere()`, basically all the methods delegated from view. 
 
-``` java MainView.java
+Now onto second step, presenter pass data to view, and the view show it to UI. We have `MainView` interface to do this
+
+```java
 package me.huteri.weather.features.main;
 
 import java.util.List;
@@ -252,14 +254,14 @@ public interface MainView {
     void showConnectionError();
 }
 ```
-And `MainActivity` only needs to implement this interface. We implement MainView interface because this is the way for the presenter to inform the view.
+And `MainActivity` only needs to implement this interface. We implement MainView interface because this is the way for the presenter to inform the view about things to show to UI side
 
-Basically, MVP is just like that but we are just talking about view layer here, we are not talking about data layer.
+This is only about view layer here.
 
-With this principle, we can test our data layer usage in presenter easily. 
+With this separation, we can test our business logic easily without depending on android framework. 
 
 
-``` java MainPresenterImplTest.java
+```java
 package me.huteri.weather.features.main;
 
 import org.junit.Before;
@@ -350,7 +352,7 @@ public class MainPresenterImplTest {
 }
 ```
 
-The test uses mockito to mock some dependency such as MainView interface and the data layer. After understanding the basic of this simple MVP, continue on reading the article in references. It will give you a little bit more undestanding about MVP.
+We can use mockito to mock some dependency such as MainView interface and the data layer.
 
 The full source code is available on [github](https://github.com/huteri/mvp-android)
 

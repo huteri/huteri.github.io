@@ -10,9 +10,9 @@ Sometimes working with json can be frustrating if we don’t understand how the 
 
 <!--more-->
 
-Look on this json format
+Here is sample of one of json response
 
-``` json
+```json
 {
   "data": [
     {
@@ -126,19 +126,15 @@ Look on this json format
 }
 ```
 
-JSON format is one of recommendation from JSONAPI.org and our company has used this format for the restful api, and now as an Android Developer, I need to parse those format.
+JSON format is one of recommendation from JSONAPI.org. Here Retrofit can parse almost everything out of the box except one array object which is `included` object. There are multiple type of data inside this arrray object, and retorift is not able to parse this data easily.
 
-On android side, I used retrofit for beautiful type safe Restful for android. I could parse almost everything except 1 object, the ‘included’ object. Now look on that object, and you will realize that it’s an object with array inside it. The problem was that the array is not a single data type. There are multiple type of data inside the array, and retrofit does not really support json array with multiple data types like this.
+As you can guess, We need to find another way to parse this kind of json format. For this example I use retrofit and GSON.
 
-I believe there is a better way to solve this problem or maybe retrofit v2.0 supports this kind of issue, need more research about this.
-
-As you might guess, I need to use more advanced solution and deep modification on the retrofit and gson side
-
-###Solution
+### Solution
 
 First, I need to have a model that consists of all the data types inside of the json array. In the json array, we have 2 types, the categories and ordered-items, so I created the model like this
 
-``` java
+```java
 public class IncludedModel extends BaseModel {
 
     private OrderedItem orderedItem;
@@ -181,11 +177,11 @@ public class IncludedModel extends BaseModel {
 }
 ```
 
-Then I need to create a custom deserializer, and we need this deserializer only for that specific object, and fortunately, Retrofit is really extensible and I can make such modification easily.
+Then I create a custom deserializer, and we need this deserializer only for that specific object, and fortunately, Retrofit has feature for this.
 
-So, I created a simple deserializer like this one
+Here is how the deserializer looks like
 
-``` java
+```java
 public class IncludedModelDeserializer implements JsonDeserializer<ArrayList<IncludedModel>> {
     @Override
     public ArrayList<IncludedModel> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -224,11 +220,11 @@ public class IncludedModelDeserializer implements JsonDeserializer<ArrayList<Inc
 }
 ```
 
-Look, I implemented JSONDeserializer with `Arraylist<IncludedModel>` as the type. If you look closely, I’m separating JSON Array into each object, and then I parsed manually the object with Gson, and then put it into the model.
+First I implement JSONDeserializer with `Arraylist<IncludedModel>` as the data type, and then I’m separating JSON Array into each object, and then I parse manually the object with Gson, and then put it into the model.
 
-After that I created a custom gson with this deserializer, and register the gson to retrofit
+After that I just need to register this type adapter to `GsonBuilder`
 
-``` java
+```java
 Type type = new TypeToken<ArrayList<IncludedModel>>(){}.getType();
 GsonBuilder gsonBuilder = new GsonBuilder();
 gsonBuilder.registerTypeAdapter(type, new IncludedModelDeserializer());
@@ -240,9 +236,9 @@ RestAdapter.Builder builder = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.NONE);
 ```
 
-Then, we just do process as usual, and retrofit will do the rest. If you also use JSONAPI format then I also recommend you to put the included data into Hashmap such as this
+If you also use JSONAPI format then I also recommend you to put the included data into Hashmap like this
 
-``` java
+```java
 private HashMap<String, IncludedModel> mIncludedList;
 
 private void addIncludedOrderedItemToList(ArrayList<IncludedModel> included) {
@@ -252,10 +248,8 @@ private void addIncludedOrderedItemToList(ArrayList<IncludedModel> included) {
 }
 ```
 
-Because it’s going to be easier for you to get the data based on the id of the object,
+Because it’s going to be easier to get the data based on the id of the object.
 
 ``` java
 Category category = (Category) mIncludedList.get("id").getObject();
 ```
-
-Hope it’s useful
